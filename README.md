@@ -52,3 +52,30 @@
 
     # 로그인 & 로그 아웃
     "HomeController.java" 파일을 참고하세요.
+
+
+
+# JdbcUserDetailsManager
+
+    @Bean
+    public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
+        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
+
+        // 사용자 정보를 가져오는 쿼리
+        userDetailsManager.setUsersByUsernameQuery(
+            "SELECT username, password, enabled FROM users WHERE username = ?");
+
+        // 권한 정보를 가져오는 쿼리
+        userDetailsManager.setAuthoritiesByUsernameQuery(
+            "SELECT username, authority FROM authorities WHERE username = ?");
+
+        return userDetailsManager;
+    }
+    
+    JdbcUserDetailsManager는 loadUserByUsername 메서드를 내부적으로 사용하므로, 직접 구현하지 않아도 됩니다.
+    기존 CustomUserDetailsService 클래스가 더 이상 필요하지 않습니다.
+
+    이외에도 JdbcUserDetailsManager는 권한 정보나 사용자 관리 관련 추가 설정도 제공합니다:
+    createUser: 새로운 사용자 추가.
+    deleteUser: 사용자 삭제.
+    updateUser: 사용자 업데이트.
