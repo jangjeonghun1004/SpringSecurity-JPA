@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <!doctype html>
 <html>
@@ -17,5 +18,11 @@
         <br>
         <input type="submit" value="전송" />
     </form>
+    <br>
+
+    <sec:authorize access="!hasRole('USER')">
+        <a href="/register">회원가입</a>
+    </sec:authorize>
+
   </body>
 </html>

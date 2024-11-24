@@ -78,6 +78,44 @@
     deleteUser: 사용자 삭제.
     updateUser: 사용자 업데이트.
 
+# 접근 제한
+
+    #SecurityFilterChain 에서 접근 제한 설정
+        hasAuthority() = 접미사 "ROLE_"은 자동으로 부여한 후 체크한다.
+                          ROLE_USER cannot start with ROLE_ (it is automatically added)
+
+        hasRole() = 데이터베이스 입력된 값 그대로를 체크한다.
+        access() = SPEL(Spring Expression Language) 스프링 표현식
+
+        정리해서 말하자면 데이터베이스에는 "USER"라는 값으로 입력하고
+        그리고 hasAuthority("ROLE_USER") 이렇게 체크하거나 또는 hasRole("USER")로 체크하면 된다.
+
+    #Controller 에서 접근 제한 설정
+        SecurityConfig 에 "@EnableMethodSecurity" 어노테이션 추가
+        @EnableMethodSecurity(
+            securedEnabled = true,        // @Secured 활성화
+            jsr250Enabled = true,         // @RolesAllowed 활성화
+            prePostEnabled = true         // @PreAuthorize 및 @PostAuthorize 활성화
+        )
+
+        메소드에 "@Secured({"ROLE_USER"})" 어노테이션 추가
+        
+    #View 에서 접근 제한
+        <dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+		</dependency>
+
+        <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
+        <sec:authorize access="hasRole('ADMIN')">
+            <p>Welcome, Admin! You have special access.</p>
+        </sec:authorize>
+    
+        <sec:authorize access="!hasRole('USER')">
+            <p>You are not a registered user. Please log in.</p>
+        </sec:authorize>
+
 # 추가 공부 사항
 
     EhCache VS Redis

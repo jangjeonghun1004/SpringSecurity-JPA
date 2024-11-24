@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ public class HomeController {
         return "login";
     }
 
+    @Secured({"ROLE_USER"})
     @GetMapping("/loginCheck")
     public String loginCheck() {
         return "loginCheck";
