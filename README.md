@@ -53,8 +53,6 @@
     # 로그인 & 로그 아웃
     "HomeController.java" 파일을 참고하세요.
 
-
-
 # JdbcUserDetailsManager
 
     @Bean
@@ -79,3 +77,7 @@
     createUser: 새로운 사용자 추가.
     deleteUser: 사용자 삭제.
     updateUser: 사용자 업데이트.
+
+# 추가 공부 사항
+
+    EhCache VS Redis
