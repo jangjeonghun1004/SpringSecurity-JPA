@@ -116,6 +116,10 @@
             <p>You are not a registered user. Please log in.</p>
         </sec:authorize>
 
+# ACL
+    ACL(Access Control List)는 객체(데이터)에 대한 사용자별 권한 목록을 의미합니다.
+    보통 RBAC (Role-Based Access Control)이 역할 기반으로 보안을 관리하는 반면, ACL은 객체 기반 보안을 제공합니다.
+
 # 추가 공부 사항
 
     EhCache VS Redis
